@@ -1,1 +1,1 @@
-"# tailor-capstone" 
+"# Tailor Capstone" 
