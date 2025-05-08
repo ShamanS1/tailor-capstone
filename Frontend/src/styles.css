@@ -1,0 +1,192 @@
+/* You can add global styles to this file, and also import other style files */
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #1C1C1C;
+  background: #F9F9F9;
+}
+
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: linear-gradient(to right, #F7B162, #F5A623);
+  color: #FFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+  color: #FFF;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #1C1C1C;
+  transform: scale(1.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo span {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1C1C1C;
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 60px;
+  background: linear-gradient(to right, #F5A623, #F7B162);
+  color: #FFF;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  animation: fadeInDown 1.2s ease;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  animation: fadeInUp 1.5s ease;
+}
+
+.hero-section .hero-carousel {
+  width: 50%;
+  position: relative;
+}
+
+.hero-carousel img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  animation: slideIn 1s ease;
+}
+
+@keyframes fadeInDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.hero-content button {
+  background: #1C1C1C;
+  color: #FFF;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.hero-content button:hover {
+  transform: scale(1.1);
+}
+
+/* Features Section */
+.features-section {
+  padding: 50px 30px;
+  text-align: center;
+  background: #E0E0E0;
+}
+
+.features-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.feature {
+  display: inline-block;
+  margin: 15px;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  background: #FFF;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.feature i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #F7B162;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 40px 20px;
+  background: #FFF;
+}
+
+.testimonials-section h2 {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.testimonial {
+  text-align: center;
+  padding: 15px;
+  border-left: 4px solid #F5A623;
+  margin-bottom: 15px;
+}
+
+.testimonial p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.testimonial span {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #F7B162;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1C1C1C;
+  color: #FFF;
+}
+@import '~leaflet/dist/leaflet.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

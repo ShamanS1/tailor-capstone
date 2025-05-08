@@ -1,0 +1,353 @@
+<div class="container">
+  <!-- Gender Selection -->
+  <div class="step">
+    <div class="gender-icons">
+      <div class="gender-icon" (click)="selectGender('male')">
+        <img src="assets/icons/man.png" alt="Male Icon">
+      </div>
+      <div class="gender-icon" (click)="selectGender('female')">
+        <img src="assets/icons/woman.png" alt="Female Icon">
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Dress Category Selection -->
+  <div class="step" id="category-section">
+    <h2>Select Dress Category</h2>
+    <div class="dress-grid">
+      <div *ngFor="let dress of dressCategories" class="dress-card" (click)="onDressSelect(dress)">
+        <img [src]="dress.image" alt="{{ dress.name }}">
+        <p>{{ dress.name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dress Details Modal -->
+  <div *ngIf="isDressDetailsModalOpen" class="modal-overlay">
+    <div class="modal">
+      <!-- Close Button -->
+      <button class="close-button" (click)="closeDressDetailsModal()">&times;</button>
+
+      <!-- Dress Image -->
+      <div class="dress-image-container">
+        <img [src]="selectedDress.image" alt="{{ selectedDress.name }}" class="dress-image">
+      </div>
+
+      <!-- Dress Details -->
+      <div class="dress-details">
+        <h2><strong>{{ selectedDress.name }}</strong></h2>
+        <p><strong>Description:</strong> {{ selectedDress.description }}</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="modal-actions">
+        <button (click)="selectDress(selectedDress)">OK</button>
+        <button (click)="closeDressDetailsModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tailor Shop Selection -->
+  <div class="step" id="tailor-shops">
+    <h2>Select Tailor Shop</h2>
+    <div *ngIf="selectedDress; else noCategorySelected">
+      <div *ngIf="tailorShops.length > 0" class="shop-list">
+        <div *ngFor="let shop of tailorShops" class="shop-card" (click)="onShopSelect(shop)">
+          <p><strong>Shop Name:</strong> {{ shop.shopName }}</p>
+          <p><strong>Price for {{ selectedDress.name }}:</strong> {{ shop.price }}</p>
+          <button (click)="openShopDetailsModal(shop.tailorId); $event.stopPropagation()">View Shop</button>
+        </div>
+      </div>
+      <div *ngIf="tailorShops.length === 0">
+        <p>No shops available for this category.</p>
+      </div>
+    </div>
+    <ng-template #noCategorySelected>
+      <p>No category selected.</p>
+    </ng-template>
+  </div>
+
+  <!-- Fixed Buttons at Bottom -->
+  <div class="fixed-buttons">
+    <button [disabled]="!selectedShop" (click)="openDesignModal()">Enter Design</button>
+    <button [disabled]="!selectedShop" (click)="openMeasurementModal()">Enter Measurement</button>
+    <button [disabled]="price <= 0" (click)="openBillModal()">Generate Bill</button>
+  </div>
+
+</div>
+
+
+<!-- Design Options Modal -->
+<div *ngIf="isDesignModalOpen" class="modal-overlay">
+  <div class="modal">
+    <h2>Select Design Options</h2>
+    <form [formGroup]="designForm">
+      <!-- Yes/No Radio Buttons for Cloth Material -->
+      <div class="radio-group">
+        <label class="radio-label">Will you provide the cloth material?</label>
+        <div class="radio-options">
+          <label class="radio-option">
+            <input
+              type="radio"
+              formControlName="willProvideCloth"
+              [value]="true"
+              (change)="onClothMaterialChange(true)"
+            />
+            <span>Yes</span>
+          </label>
+          <label class="radio-option">
+            <input
+              type="radio"
+              formControlName="willProvideCloth"
+              [value]="false"
+              (change)="onClothMaterialChange(false)"
+            />
+            <span>No</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Additional Fields for Cloth Type and Color (if No is selected) -->
+      <div *ngIf="!designForm.value.willProvideCloth" class="cloth-fields">
+        <label>Cloth Type:</label>
+        <input type="text" formControlName="clothType" placeholder="Enter cloth type" />
+
+        <label>Cloth Color:</label>
+        <input type="text" formControlName="clothColor" placeholder="Enter cloth color" />
+      </div>
+
+      <!-- Other Design Options -->
+      <div *ngFor="let option of objectKeys(designOptions)" class="design-option">
+        <label>{{ option }}</label>
+        <div *ngIf="isArray(designOptions[option])">
+          <select [formControlName]="option">
+            <option *ngFor="let value of designOptions[option]" [value]="value">{{ value }}</option>
+          </select>
+        </div>
+        <div *ngIf="!isArray(designOptions[option])">
+          <input type="text" [formControlName]="option" />
+        </div>
+      </div>
+
+      <!-- Modal Buttons -->
+      <div class="modal-actions">
+        <button type="button" (click)="closeDesignModal()">Close</button>
+        <button type="button" (click)="saveDesignOptions()">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- Measurement Modal -->
+<div *ngIf="isMeasurementModalOpen" class="modal-overlay">
+  <div class="modal">
+    <button class="close-button" (click)="closeMeasurementModal()">&times;</button>
+    <h2>Enter Measurements</h2>
+    <form [formGroup]="measurementForm" class="measurement-form">
+      <div *ngFor="let field of measurementFields">
+        <label>{{ field.label }}</label>
+        <input [formControlName]="field.name" [placeholder]="field.placeholder">
+      </div>
+      <div class="modal-actions">
+        <button type="button" (click)="closeMeasurementModal()">Close</button>
+        <button type="button" (click)="calculatePrice()">Save & Calculate Price</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Bill Modal -->
+<div id="bill-content" *ngIf="isBillModalOpen" class="modal-overlay">
+  <div class="modal">
+    <!-- Bill Heading -->
+    <div class="bill-heading-box">
+      <h2 class="modal-title">Bill Details</h2>
+    </div>
+
+    <div *ngIf="billDetails" class="bill-content">
+      <!-- Table for Bill Details -->
+      <table class="bill-table">
+        <!-- Customer Details -->
+        <thead>
+        <tr class="section-header">
+          <th colspan="2">Customer Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><strong>Name:</strong></td>
+          <td>{{ billDetails.customerName }}</td>
+        </tr>
+        <tr>
+          <td><strong>Customer ID:</strong></td>
+          <td>{{ billDetails.customerId }}</td>
+        </tr>
+        <tr>
+          <td><strong>Gender:</strong></td>
+          <td>{{ billDetails.gender }}</td>
+        </tr>
+        </tbody>
+
+        <!-- Order Details -->
+        <thead>
+        <tr class="section-header">
+          <th colspan="2">Order Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><strong>Order ID:</strong></td>
+          <td>{{ billDetails.orderId }}</td>
+        </tr>
+        <tr>
+          <td><strong>Order Date:</strong></td>
+          <td>{{ billDetails.orderDate | date }}</td>
+        </tr>
+        <tr>
+          <td><strong>Delivery Date:</strong></td>
+          <td>{{ billDetails.deliveryDate | date }}</td>
+        </tr>
+        <tr>
+          <td><strong>Dress:</strong></td>
+          <td>{{ billDetails.dress.name }}</td>
+        </tr>
+        </tbody>
+
+        <!-- Shop Details -->
+        <thead>
+        <tr class="section-header">
+          <th colspan="2">Shop Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><strong>Shop Name:</strong></td>
+          <td>{{ billDetails.shopName }}</td>
+        </tr>
+        <tr>
+          <td><strong>Shop ID:</strong></td>
+          <td>{{ billDetails.tailorId }}</td>
+        </tr>
+        </tbody>
+
+        <!-- Price Details -->
+        <thead>
+        <tr class="section-header">
+          <th colspan="2">Price Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><strong>Measurements:</strong></td>
+          <td>
+            <p>Chest: {{ billDetails.measurements.chest }}</p>
+            <p>Waist: {{ billDetails.measurements.waist }}</p>
+            <p>Shoulder: {{ billDetails.measurements.shoulder }}</p>
+            <p>Length: {{ billDetails.measurements.length }}</p>
+            <p>Sleeve: {{ billDetails.measurements.sleeve }}</p>
+
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Design:</strong></td>
+          <td>
+            <p>Neck Type: {{ billDetails.design.neckTypes }}</p>
+            <p>Sleeve Type: {{ billDetails.design.sleeveTypes }}</p>
+            <p>Cuts: {{ billDetails.design.cuts }}</p>
+            <p>Other Options: {{ billDetails.design.otherOptions }}</p>
+          </td>
+        </tr>
+        <tr class="price-row">
+          <td><strong>Total Price:</strong></td>
+          <td>₹{{ billDetails.price }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Buttons -->
+    <div class="modal-buttons">
+      <button type="button" class="btn-close" (click)="closeBillModal()">Close</button>
+      <button type="button" class="btn-download" (click)="downloadBill()">Download Bill</button>
+    </div>
+  </div>
+</div>
+
+<!--&lt;!&ndash; Shop Details Modal &ndash;&gt;-->
+<!--<div *ngIf="isShopDetailsModalOpen" class="modal-overlay">-->
+<!--  <div class="modal">-->
+<!--    &lt;!&ndash; Close Button &ndash;&gt;-->
+<!--    <button class="close-button" (click)="closeShopDetailsModal()">&times;</button>-->
+
+<!--    &lt;!&ndash; Shop Image &ndash;&gt;-->
+<!--    <div class="shop-image-container">-->
+<!--      <img [src]="selectedShopDetails.image || 'assets/tailor-shop.jpg'" alt="Shop Image" class="shop-image">-->
+<!--      <div class="image-overlay"></div>-->
+<!--      <h2 class="shop-name">{{ selectedShopDetails.name }}</h2>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Shop Details &ndash;&gt;-->
+<!--    <div class="shop-details">-->
+<!--      <p><strong>Tailor Name:</strong> {{ selectedShopDetails.tailorName }}</p>-->
+<!--      <p><strong>Phone:</strong> {{ selectedShopDetails.phone }}</p>-->
+<!--      <p><strong>Email:</strong> {{ selectedShopDetails.email }}</p>-->
+<!--      <p><strong>Location:</strong> {{ selectedShopDetails.location }}</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Leaflet Map &ndash;&gt;-->
+<!--    <div id="shop-map" class="map-container"></div>-->
+
+<!--    &lt;!&ndash; Accepted Categories and Prices &ndash;&gt;-->
+<!--    <div class="categories-section">-->
+<!--      <h3>Accepted Categories and Prices</h3>-->
+<!--      <div class="categories-grid">-->
+<!--        <div *ngFor="let category of selectedShopDetails.categories" class="category-card">-->
+<!--          <p class="category-name">{{ category.name }}</p>-->
+<!--          <p class="category-price">₹{{ category.price }}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!-- Shop Details Modal -->
+<div *ngIf="isShopDetailsModalOpen" class="modal-overlay">
+  <div class="modal">
+    <!-- Close Button -->
+    <button class="close-button" (click)="closeShopDetailsModal()">&times;</button>
+
+    <!-- Shop Image -->
+    <div class="shop-image-container">
+      <img [src]="'assets/tailor-shop.jpg'" alt="Shop Image" class="shop-image">
+      <div class="image-overlay"></div>
+    </div>
+
+    <!-- Shop Details -->
+    <div class="shop-details">
+      <p><strong>Shop Name:</strong> {{ selectedShopDetails?.shopName }}</p>
+      <p><strong>Tailor Name:</strong> {{ selectedShopDetails?.name }}</p>
+      <p><strong>Phone:</strong> {{ selectedShopDetails?.phone }}</p>
+      <p><strong>Email:</strong> {{ selectedShopDetails?.email }}</p>
+      <p><strong>Location:</strong> </p>
+    </div>
+
+    <!-- Leaflet Map -->
+    <div id="shop-map" class="map-container"></div>
+
+    <!-- Accepted Categories and Prices -->
+    <div class="categories-section">
+      <h3><strong>Accepted Categories and Prices</strong></h3>
+      <div class="categories-grid">
+        <div *ngFor="let category of selectedShopDetails?.dress" class="category-card">
+          <p class="category-details">
+            <span class="category-name">{{ category.name }}</span>
+            <span class="category-price">₹{{ category.price }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

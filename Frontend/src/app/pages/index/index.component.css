@@ -1,0 +1,534 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #1C1C1C;
+  background: #F4F6F8;
+}
+
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #F9F9F9;
+}
+
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 30px;
+  background: linear-gradient(45deg, #FF8E53, #FF6B6B);
+  color: #FFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+}
+
+.logo img {
+  height: 80px; /* Adjust height as needed */
+  width: auto; /* Maintain aspect ratio */
+  gap:2px;
+  padding:3px;
+}
+/* Hero Section */
+
+.hero-section {
+    display: flex;
+    align-items: center;
+    padding: 50px;
+    background: linear-gradient(to right, #6B8DD6, #F4A261);
+    color: #FFF;
+    position: relative;
+    border-radius: 40% 0% 30% 0; /* Circular top corners */
+    height: 85%;
+
+}
+
+.carousel {
+  position: relative;
+  width: 50%;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 300px;
+  margin-top: 20px;  /* Added to bring images lower */
+}
+
+.carousel-slide {
+  display: flex;
+  width: 400%;
+  animation: slideAnimation 20s infinite ease-in-out;  /* Increased duration and added easing */
+}
+
+.carousel img {
+  width: 100%;
+  border-radius: 10px;
+  height: 300px;  /* Reduced from 400px */
+  opacity: 0;
+  animation: fadeIn 1.5s forwards ease-in-out;  /* Added easing and increased duration */
+}
+
+.carousel img:nth-child(1) { animation-delay: 0s; }
+.carousel img:nth-child(2) { animation-delay: 4s; }
+.carousel img:nth-child(3) { animation-delay: 8s; }
+.carousel img:nth-child(4) { animation-delay: 12s; } /* Added fourth slide */
+
+
+@keyframes slideAnimation {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(0); }
+  25% { transform: translateX(-25%); }
+  45% { transform: translateX(-25%); }
+  50% { transform: translateX(-50%); }
+  70% { transform: translateX(-50%); }
+  75% { transform: translateX(-75%); }
+  95% { transform: translateX(-75%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Hero Section Styling */
+.hero-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  color: #ffffff;
+  min-height: 80vh;
+}
+
+.hero-content {
+  position: absolute;
+  left: 55%;
+  width: 40%;
+  padding: 2rem;
+  z-index: 2;
+  animation: fadeIn 1s ease-in;
+}
+
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #e6e6e6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #f0f0f0;
+}
+
+.hero-content button {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.hero-content button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Features Section Styling */
+.features-section {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.features-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #2d3436;
+  position: relative;
+}
+
+.features-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+}
+
+.features-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature {
+  flex: 1;
+  min-width: 300px;
+  padding: 2rem;
+  background: white;
+  border-radius: 15px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature i {
+  font-size: 2.5rem;
+  color: #FF6B6B;
+  margin-bottom: 1.5rem;
+}
+
+.feature h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  color: #2d3436;
+  margin-bottom: 1rem;
+}
+
+.feature p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #636e72;
+  line-height: 1.6;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .feature {
+    min-width: 250px;
+  }
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  font-family: 'Poppins', sans-serif;
+}
+
+.testimonials-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2d3436;
+}
+
+.testimonial {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.testimonial p {
+  font-size: 1.1rem;
+  color: #636e72;
+  line-height: 1.6;
+}
+
+.testimonial span {
+  display: block;
+  font-weight: 600;
+  margin-top: 10px;
+  color: #FF6B6B;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1C1C1C;
+  color: #FFF;
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* Tailor Registration Popup Specific Styles */
+.popup {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 40px;
+  border-radius: 20px;
+  width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.4s ease;
+  box-sizing: border-box;
+}
+
+.popup h2 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 25px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #2d3436;
+  text-align: center;
+  position: relative;
+}
+
+.popup h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+}
+
+.popup input,
+.popup select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.popup input:focus,
+.popup select:focus {
+  border-color: #FF6B6B;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+  outline: none;
+}
+
+.popup button {
+  width: 100%;
+  padding: 14px;
+  margin: 15px 0;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.popup button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.popup button[type="button"] {
+  background: linear-gradient(45deg, #6c757d, #495057);
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.popup button[type="button"]:hover {
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px !important;
+  height: 30px;
+  border-radius: 50% !important;
+  background: white !important;
+  color: #FF6B6B;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #FF6B6B !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.close-btn:hover {
+  background: #FF6B6B !important;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* Checkbox and Price Input Styles */
+.popup label {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-weight: 500;
+  color: #2d3436;
+}
+
+.popup input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  accent-color: #FF6B6B;
+}
+
+.popup .price-input {
+  display: inline-block;
+  width: calc(100% - 30px);
+  margin-left: 28px;
+  margin-top: 5px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  backdrop-filter: blur(5px); /* blur effect */
+  z-index: 9999; /* ensure it's above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+/* Optional: Add a spinning animation */
+.loading-spinner::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Ensure popups appear below the loading spinner */
+.popup-overlay {
+  z-index: 9998;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 35px;
+}
+
+.password-container i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+.password-container i:hover {
+  color: #333;
+}

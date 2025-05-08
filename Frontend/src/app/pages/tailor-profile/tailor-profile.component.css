@@ -1,0 +1,409 @@
+/* General Styles */
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(rgba(160, 160, 160, 0.65), rgba(150, 150, 150, 0.65));
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(120, 120, 120, 0.45);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.profile-header h1 {
+  font-family: Arial, sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  color: #4a4a4a;
+  letter-spacing: 0.5px;
+}
+
+.profile-header button {
+  padding: 15px 35px;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: white;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  margin-left: -10px;
+  margin-top: 10px;
+}
+
+.profile-header button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
+  background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+}
+
+.profile-header button:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+}
+
+/* Profile Content Grid Layout */
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
+
+/* Profile Picture Section */
+.profile-picture-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-picture {
+  text-align: center;
+}
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #FF4F4F;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 79, 79, 0.35);
+}
+
+/* Profile Details Section with original spacing */
+.profile-details-section {
+  background: linear-gradient(145deg, rgba(240, 240, 240, 0.4), rgba(230, 230, 230, 0.4));
+  padding: 20px;  /* Restored original padding */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-top: 0;  /* Removed negative margin */
+}
+
+.profile-details-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(145deg, rgba(240, 240, 240, 0.4), rgba(230, 230, 230, 0.4));  /* Maintain grey on hover */
+}
+
+.profile-details-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.1), transparent);  /* Reduced white shine */
+  transform: translateX(-100%);
+  transition: 0.5s;
+}
+
+.profile-details-section:hover::before {
+  transform: translateX(100%);
+}
+
+/* Enhanced Form Styling */
+.profile-form {
+  display: grid;
+  gap: 5px;
+  padding: 15px;  /* Restored original padding */
+  background: linear-gradient(145deg, #ffffff, #f4f4f4);
+  border-radius: 15px;
+  box-shadow: 
+      inset 0 2px 4px rgba(255, 255, 255, 0.7),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 3px;
+}
+
+/* Enhanced Form Fields with hover effects for editable state */
+::ng-deep .profile-form .mat-form-field:not(.mat-form-field-disabled):hover .mat-form-field-flex {
+  background-color: #f8f9ff;
+  transform: translateX(5px);
+  box-shadow: 0 3px 10px rgba(63, 81, 181, 0.2);
+  border-left: 3px solid #3f51b5;
+}
+
+/* Input styling */
+::ng-deep .profile-form .mat-input-element {
+  color: #2c3e50 !important;
+  font-size: 17px;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .profile-form .mat-form-field:hover .mat-input-element {
+  transform: translateX(4px);
+}
+
+/* Label styling */
+::ng-deep .profile-form .mat-form-field-label {
+  color: rgba(45, 45, 45, 0.6) !important;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .profile-form .mat-form-field:hover .mat-form-field-label {
+  color: rgba(63, 81, 181, 0.8) !important;
+}
+
+::ng-deep .profile-form .mat-focused .mat-form-field-label {
+  color: #3f51b5 !important;
+}
+
+/* Form field background */
+::ng-deep .profile-form .mat-form-field-appearance-outline .mat-form-field-flex {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .profile-form .mat-form-field:hover .mat-form-field-flex {
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(63, 81, 181, 0.1);
+}
+
+/* When form field is focused */
+::ng-deep .profile-form .mat-focused .mat-form-field-flex {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(63, 81, 181, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Select dropdown styling */
+::ng-deep .profile-form .mat-select-value {
+  color: #2c3e50 !important;
+  font-size: 17px;
+}
+
+::ng-deep .profile-form .mat-select-arrow {
+  color: rgba(45, 45, 45, 0.4);
+  transition: all 0.3s ease;
+}
+
+::ng-deep .profile-form .mat-form-field:hover .mat-select-arrow {
+  color: #3f51b5;
+}
+
+/* Form field outline */
+::ng-deep .profile-form .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgba(63, 81, 181, 0.2);
+  transition: all 0.3s ease;
+}
+
+::ng-deep .profile-form .mat-form-field:hover .mat-form-field-outline {
+  color: rgba(63, 81, 181, 0.4);
+}
+
+::ng-deep .profile-form .mat-focused .mat-form-field-outline {
+  color: #3f51b5 !important;
+}
+
+/* Form field spacing and layout */
+.profile-form mat-form-field {
+  margin-bottom: 5px;  /* Further reduced from 8px */
+  transition: transform 0.3s ease;
+}
+
+.profile-form mat-form-field:hover {
+  transform: translateX(5px);
+}
+
+/* Map section styling with minimal spacing */
+.map-section {
+  margin-top: 0;  /* Removed top margin */
+  padding: 12px;
+  background: linear-gradient(145deg, #f8f9ff, #f0f2f5);
+  border-radius: 12px;
+  box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.05),
+      inset 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.map-section h3 {
+  font-size: 1.2rem;
+  color: #3f51b5;
+  margin-bottom: 8px;
+}
+
+.map-section button {
+  margin-top: 8px;
+}
+
+/* Accepted Categories Section with updated heading style */
+.categories-section {
+  grid-column: span 2;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.categories-section h2 {
+  font-size: 2rem;          /* Increased from 1.5rem */
+  font-family: Arial, sans-serif;  /* Matching other headings */
+  font-weight: 700;         /* Bold weight */
+  color: #4a4a4a;          /* Matching grey color we've been using */
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;    /* Added letter spacing */
+}
+
+.category-list {
+  display: grid;
+  gap: 15px;  /* Reduced from 20px */
+  margin-top: 20px;  /* Reduced from 25px */
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;  /* Reduced from 20px 25px */
+  background: linear-gradient(145deg, #ffffff, #f8f8f8);
+  border-radius: 10px;  /* Reduced from 12px */
+  box-shadow: 
+      0 3px 10px rgba(0, 0, 0, 0.05),
+      inset 0 2px 4px rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+  border-left: 4px solid #FF4F4F;
+}
+
+.category-item:hover {
+  transform: translateY(-3px);  /* Reduced from -4px */
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+}
+
+.category-name {
+  font-weight: 600;
+  font-size: 16px;  /* Reduced from 17px */
+  color: #2c3e50;
+  letter-spacing: 0.3px;
+}
+
+.category-price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-price input {
+  width: 90px;  /* Reduced from 100px */
+  padding: 6px 10px;  /* Reduced from 8px 12px */
+  border: 2px solid rgba(255, 79, 79, 0.3);
+  border-radius: 6px;  /* Reduced from 8px */
+  text-align: right;
+  font-size: 15px;  /* Reduced from 16px */
+  font-weight: 500;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.category-price input:hover {
+  border-color: rgba(255, 79, 79, 0.5);
+  box-shadow: 0 2px 8px rgba(255, 79, 79, 0.1);
+}
+
+.category-price input:focus {
+  outline: none;
+  border-color: #FF4F4F;
+  box-shadow: 0 2px 12px rgba(255, 79, 79, 0.15);
+}
+
+/* Add/Edit Categories Button styling */
+.categories-section button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+  margin-top: 10px;
+}
+
+.categories-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+  background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+}
+
+/* Save Button Styling */
+.save-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53) !important;
+  color: white !important;
+  padding: 12px 32px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.save-btn:hover {
+  background: linear-gradient(135deg, #FF8E53, #FF6B6B) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4) !important;
+}
+
+.save-btn:active {
+  transform: translateY(1px) !important;
+  box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3) !important;
+}
+
+/* Adjust text colors for better visibility */
+.profile-form mat-label,
+.profile-form input,
+.profile-form mat-select {
+  color: #333333 !important;
+}
+
+::ng-deep .mat-form-field-label {
+  color: rgba(45, 45, 45, 0.7) !important;
+}
+
+::ng-deep .mat-form-field-outline {
+  color: rgba(45, 45, 45, 0.3) !important;
+}
+
+/* Slightly larger form field content */
+::ng-deep .profile-form .mat-form-field-infix {
+  padding: 8px 0;
+}
+
+

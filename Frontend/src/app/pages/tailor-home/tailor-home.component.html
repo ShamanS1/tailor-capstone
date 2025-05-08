@@ -1,0 +1,97 @@
+<div class="container">
+  <h2>Tailor Home</h2>
+
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <div class="input-group">
+      <label>Order ID</label>
+      <input type="text" [(ngModel)]="orderIdFilter" class="custom-input" placeholder="Enter Order ID">
+    </div>
+
+    <div class="input-group">
+      <label>Customer ID</label>
+      <input type="text" [(ngModel)]="customerIdFilter" class="custom-input" placeholder="Enter Customer ID">
+    </div>
+
+    <div class="input-group">
+      <label>Due Date</label>
+      <input type="date" [(ngModel)]="dueDateFilter" class="custom-input">
+    </div>
+
+    <div class="input-group">
+      <label>Status</label>
+      <select [(ngModel)]="statusFilter" class="custom-select">
+        <option value="">All</option>
+        <option value="PENDING">Pending</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="PICKED_UP">Picked Up</option>
+        <option value="REJECTED">Rejected</option>
+        <option value="YET_TO_PICK_UP">Yet to Pick Up</option>
+      </select>
+    </div>
+
+    <div class="button-group">
+      <button class="custom-button apply" (click)="applyFilters()">Apply Filters</button>
+      <button class="custom-button clear" (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div class="custom-table-container">
+    <table mat-table [dataSource]="dataSource" class="custom-table mat-elevation-z8">
+      <!-- Order ID Column -->
+      <ng-container matColumnDef="orderId">
+        <th mat-header-cell *matHeaderCellDef>Order ID</th>
+        <td mat-cell *matCellDef="let order">{{ order.orderId }}</td>
+      </ng-container>
+
+      <!-- Customer ID Column -->
+      <ng-container matColumnDef="customerId">
+        <th mat-header-cell *matHeaderCellDef>Customer ID</th>
+        <td mat-cell *matCellDef="let order">{{ order.customerId }}</td>
+      </ng-container>
+
+      <!-- Due Date Column -->
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef>Due Date</th>
+        <td mat-cell *matCellDef="let order">
+          {{ order.deliveryDate | date: 'mediumDate' }}
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let order">
+          <select [(ngModel)]="order.status" (change)="onStatusChange(order)" class="status-select">
+            <option value="PENDING">Pending</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="PICKED_UP">Picked Up</option>
+            <option value="REJECTED">Rejected</option>
+            <option value="YET_TO_PICK_UP">Yet to Pick Up</option>
+          </select>
+          <button
+            *ngIf="order.statusChanged"
+            class="update-button"
+            (click)="updateStatus(order)"
+          >
+            Update Status
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let order">
+          <button class="custom-button view-details" (click)="openOrderDetails(order)">
+            View Details
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

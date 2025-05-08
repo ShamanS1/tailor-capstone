@@ -1,0 +1,342 @@
+.container {
+  max-width: 1200px;
+  padding: 20px;
+  overflow-x: hidden;
+  margin: 0 auto;
+}
+
+.filter-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+.container h2 {
+    color: #2c3e50;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    padding-bottom: 18px;
+    border-bottom: 4px solid #FF4F4F;
+    display: inline-block;
+    letter-spacing: 0.5px;
+}
+
+.input-group {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.custom-input, .custom-select {
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.custom-select {
+    appearance: none;
+    background: white;
+}
+
+.custom-input:focus, .custom-select:focus {
+    outline: none;
+    border-color: #FF4F4F;
+    box-shadow: 0 0 0 3px rgba(255, 79, 79, 0.1);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.custom-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-button.apply {
+    background: #FF4F4F;
+    color: white;
+}
+
+.custom-button.clear {
+    background: #e63946;
+    color: white;
+}
+
+.custom-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom Table Styling */
+.custom-table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-right: 0;
+    background: linear-gradient(rgba(50, 50, 50, 0.75), rgba(50, 50, 50, 0.75));
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(50, 50, 50, 0.25);
+}
+
+/* Style the scrollbar */
+.custom-table-container::-webkit-scrollbar {
+    height: 8px;
+    background: transparent;
+}
+
+.custom-table-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.custom-table-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Material Table Overrides */
+::ng-deep .mat-table {
+    width: 100%;
+    background: transparent !important;
+}
+
+::ng-deep .mat-header-cell {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff !important;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 20px 22px !important;
+    letter-spacing: 0.3px;
+    border-bottom: none !important;
+}
+
+::ng-deep .mat-cell {
+    color: #ffffff !important;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 18px 22px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+::ng-deep .mat-row:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+/* Status Column Styling - Match other columns */
+::ng-deep .mat-form-field {
+    width: 150px;
+    margin-top: -16px !important;
+    margin-bottom: -16px !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+}
+
+::ng-deep .mat-form-field-flex {
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+}
+
+::ng-deep .mat-select-value,
+::ng-deep .mat-select-arrow {
+    color: #ffffff !important;
+}
+
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+
+::ng-deep .mat-form-field-infix {
+    padding: 8px 0 !important;
+    border-top: 0 !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
+}
+
+/* Status Select Text */
+::ng-deep .mat-select-value-text {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+}
+
+/* Update Status Button */
+.mat-raised-button {
+    margin-left: 10px;
+    background: #FF6B6B !important;
+    color: white !important;
+    padding: 0 16px !important;
+    line-height: 32px !important;
+    border-radius: 8px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .custom-table-container {
+        padding: 15px;
+        overflow-x: auto;
+    }
+
+    ::ng-deep .mat-header-cell,
+    ::ng-deep .mat-cell {
+        padding: 10px 15px !important;
+        font-size: 14px;
+    }
+}
+
+/* Status Select Styling */
+.status-select {
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    width: 160px;
+    margin-right: 10px;
+}
+
+/* Update Status Button */
+.update-button {
+    padding: 10px 20px;
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.update-button:hover {
+    background: #FF4F4F;
+    transform: translateY(-2px);
+}
+
+/* Ensure all cells have consistent padding */
+.mat-cell {
+    padding: 18px 22px !important;
+}
+
+/* View Details Button */
+.view-details {
+    padding: 10px 20px;
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.view-details:hover {
+    background: #FF4F4F;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+/* Modal Container */
+.modal {
+    background: white; /* White background for the modal */
+    width: 90%;
+    max-width: 600px; /* Maximum width */
+    border-radius: 12px; /* Rounded corners */
+    padding: 20px; /* Padding inside the modal */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    position: relative; /* For positioning close button */
+}
+
+/* Modal Header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0; /* Bottom border */
+    padding-bottom: 10px; /* Padding below header */
+}
+
+/* Modal Title */
+.modal-title {
+    font-size: 24px; /* Title font size */
+    font-weight: 600; /* Bold title */
+    color: #2c3e50; /* Title color */
+}
+
+/* Close Button */
+.close-button {
+    background: transparent; /* Transparent background */
+    border: none; /* No border */
+    font-size: 20px; /* Font size for close button */
+    cursor: pointer; /* Pointer cursor */
+}
+
+/* Modal Body */
+.modal-body {
+    margin-top: 15px; /* Space above body */
+    font-size: 16px; /* Body font size */
+    color: #333; /* Body text color */
+}
+
+/* Modal Footer */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    margin-top: 20px; /* Space above footer */
+}
+
+/* Action Buttons */
+.modal-footer .custom-button {
+    margin-left: 10px; /* Space between buttons */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal {
+        width: 95%; /* Full width on smaller screens */
+    }
+}

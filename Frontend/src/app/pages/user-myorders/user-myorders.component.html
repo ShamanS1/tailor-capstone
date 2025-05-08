@@ -1,0 +1,343 @@
+<div class="dashboard-container">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <h1>My Orders</h1>
+  </div>
+
+  <!-- Dashboard Cards -->
+  <div class="dashboard-cards">
+    <div class="card">
+      <h3>Total Orders Placed</h3>
+      <p>{{ totalOrders }}</p>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="chart-card">
+      <h3>Orders by Status</h3>
+      <div class="chart-container">
+        <canvas id="statusChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <h2>Filter Orders</h2>
+    <div class="filters">
+      <input type="text" [(ngModel)]="filterOrderId" placeholder="Order ID" />
+      <select [(ngModel)]="filterStatus">
+        <option value="">All Statuses</option>
+        <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+      </select>
+      <input type="text" [(ngModel)]="filterShopName" placeholder="Customer Name" />
+      <input type="text" [(ngModel)]="filterTailorId" placeholder="Tailor ID" />
+      <button (click)="applyFilters()">Apply Filters</button>
+      <button (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </div>
+
+  <!-- Orders Table -->
+  <div class="orders-table">
+    <h2>My Orders</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Tailor ID</th>
+        <th>Customer Name</th>
+        <th>Ordered On</th>
+        <th>Delivery Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of filteredOrders">
+        <td>{{ order.orderId }}</td>
+        <td>{{ order.tailorId !== undefined && order.tailorId !== null ? order.tailorId : 'No Tailor ID' }}</td>
+        <td>{{ order.customerDetails.name || 'Loading...' }}</td>
+        <td>{{ order.orderDate | date }}</td>
+        <td>{{ order.deliveryDate | date }}</td>
+        <td>{{ order.status}} </td>
+        <td>
+          <button (click)="viewOrderDetails(order)">View Details</button>
+          <button (click)="cancelOrder(order)" 
+                  [disabled]="order.status === 'Completed' || order.status === 'Cancelled'"
+                  class="cancel-btn">
+            Cancel Order
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Order Details Modal -->
+<div class="modal" *ngIf="isOrderDetailsModalOpen">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Order Details</h2>
+      <button class="close-btn" (click)="closeOrderDetailsModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body" *ngIf="selectedOrder">
+      <!-- Add Order Status Tracker -->
+      <div class="order-status-tracker">
+        <div class="status-step" 
+             *ngFor="let status of orderStatusFlow; let i = last" 
+             [class.active]="isStepActive(status)"
+             [class.completed]="isStepCompleted(status)"
+             [class.rejected]="isOrderRejected() && status === 'REJECTED'"
+             [class.hidden]="status === 'REJECTED' && !isOrderRejected()"
+             [class.last]="i">
+          <div class="status-icon">
+            <i class="fas" [class.fa-check]="!isOrderRejected()" [class.fa-times]="isOrderRejected() && status === 'REJECTED'"></i>
+          </div>
+          <div class="status-label">{{ formatLabel(status) }}</div>
+          <div class="status-line" 
+               *ngIf="!i"
+               [class.rejected]="isOrderRejected()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Existing Order Info -->
+      <div class="order-info">
+        <h3>Order Information</h3>
+        <p><strong>Order ID:</strong> {{selectedOrder.orderId}}</p>
+        <p><strong>Order Date:</strong> {{selectedOrder.orderDate | date}}</p>
+        <p><strong>Status:</strong> {{selectedOrder.status}}</p>
+      </div>
+
+      <!-- Measurement Details -->
+      <div class="measurement-details" *ngIf="selectedOrder.measurementDetails">
+        <h3>Measurement Details</h3>
+        
+        <!-- Gender and Category -->
+        <div class="detail-section">
+          <p><strong>Gender:</strong> {{selectedOrder.measurementDetails.gender}}</p>
+          <p><strong>Category:</strong> {{selectedOrder.measurementDetails.category}}</p>
+        </div>
+
+        <!-- Design Details -->
+        <div class="detail-section" *ngIf="selectedOrder.measurementDetails.design">
+          <h4>Design Details</h4>
+          <div class="design-grid">
+            <ng-container *ngFor="let design of selectedOrder.measurementDetails.design.split(',')">
+              <ng-container *ngIf="design.split(':')[1]?.trim()">
+                <p>
+                  <strong>{{formatLabel(design.split(':')[0])}}: </strong>
+                  {{design.split(':')[1]}}
+                </p>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- Measurements -->
+        <div class="detail-section" *ngIf="selectedOrder.measurementDetails.measurements">
+          <h4>Measurements</h4>
+          <div class="measurements-grid">
+            <ng-container *ngFor="let measurement of selectedOrder.measurementDetails.measurements.split(',')">
+              <ng-container *ngIf="measurement.split(':')[1]?.trim()">
+                <p>
+                  <strong>{{formatLabel(measurement.split(':')[0])}}: </strong>
+                  {{measurement.split(':')[1]}} cm
+                </p>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="detail-section">
+          <p class="price"><strong>Price:</strong> ₹{{selectedOrder.measurementDetails.price}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.detail-section {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.design-grid,
+.measurements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+h4 {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 8px 0;
+}
+
+.price {
+  font-size: 1.2em;
+  color: #2c3e50;
+}
+
+strong {
+  color: #2c3e50;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.order-status-tracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.status-step {
+  flex: 1;
+  position: relative;
+  text-align: center;
+}
+
+.status-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e9ecef;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.status-icon i {
+  color: white;
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.status-line {
+  position: absolute;
+  top: 15px;
+  left: calc(50% + 15px);
+  right: calc(-50% + 15px);
+  height: 2px;
+  background: #e9ecef;
+  z-index: 0;
+  transition: all 0.3s ease;
+}
+
+.status-label {
+  font-size: 12px;
+  color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+/* Active and Completed States */
+.status-step.active .status-icon,
+.status-step.completed .status-icon {
+  background: #28a745;
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(40, 167, 69, 0.2);
+}
+
+.status-step.active .status-icon i,
+.status-step.completed .status-icon i {
+  opacity: 1;
+}
+
+.status-step.active .status-label,
+.status-step.completed .status-label {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.status-step.completed .status-line {
+  background: #28a745;
+}
+
+/* Animation for status changes */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.status-step.active .status-icon {
+  animation: pulse 1s ease infinite;
+}
+</style>
+
+

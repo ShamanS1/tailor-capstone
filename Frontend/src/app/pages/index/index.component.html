@@ -1,0 +1,349 @@
+<header class="navbar">
+  <div class="logo">
+    <img src="assets/logo2.png" alt="Logo" class="logo-main">
+    <img src="assets/darjidukan.png" alt="New Logo" class="logo-secondary">
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#testimonials">Testimonials</a>
+    <a (click)="openLoginPopup()">Login</a>
+  </nav>
+</header>
+
+<!-- Login Popup -->
+<div class="popup-overlay" *ngIf="isLoginPopupOpen">
+  <div class="popup">
+    <button class="close-btn" (click)="closeLoginPopup()">&times;</button>
+    <h2>Login</h2>
+    <form (ngSubmit)="onLogin()">
+      <input type="email" placeholder="Email" [(ngModel)]="loginRequest.email" name="email" required>
+      <div class="password-container">
+        <input [type]="showLoginPassword ? 'text' : 'password'" placeholder="Password" [(ngModel)]="loginRequest.password" name="password" required>
+        <i class="fas" [class.fa-eye]="!showLoginPassword" [class.fa-eye-slash]="showLoginPassword" (click)="togglePasswordVisibility('login')"></i>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+<div *ngIf="isLoading" class="loading-spinner">Loading...</div>
+<!-- Register Role Selection Popup -->
+<div class="popup-overlay" *ngIf="isRoleSelectionPopupOpen">
+  <div class="popup">
+    <button class="close-btn" (click)="closeRoleSelectionPopup()">&times;</button>
+    <h2>Register As</h2>
+    <button (click)="openCustomerRegistrationPopup()">Customer</button>
+    <button (click)="openTailorRegistrationPopup()">Tailor</button>
+  </div>
+</div>
+
+<!-- Customer Registration Popup -->
+<div class="popup-overlay" *ngIf="isCustomerRegistrationPopupOpen">
+  <div class="popup">
+    <button class="close-btn" (click)="closeCustomerRegistrationPopup()">&times;</button>
+    <h2>Customer Registration</h2>
+    <form (ngSubmit)="onCustomerRegister()" #customerForm="ngForm">
+      <input type="text" placeholder="Name" [(ngModel)]="user.name" name="name" 
+        pattern="^[a-zA-Z0-9]+$" required 
+        #name="ngModel">
+      <div class="error-message" *ngIf="name.invalid && (name.dirty || name.touched)">
+        Name can only contain letters and numbers
+      </div>
+
+      <input type="email" placeholder="Email" [(ngModel)]="user.email" name="email" 
+        email required 
+        #email="ngModel">
+      <div class="error-message" *ngIf="email.invalid && (email.dirty || email.touched)">
+        Please enter a valid email
+      </div>
+
+      <input type="tel" placeholder="Phone Number" [(ngModel)]="user.phoneNumber" 
+        name="phoneNumber" pattern="^[0-9]{10}$" required 
+        #phone="ngModel">
+      <div class="error-message" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+        Phone number must be 10 digits
+      </div>
+
+      <input type="text" placeholder="Address" [(ngModel)]="user.address" name="street" required>
+
+      <div class="password-container">
+        <input [type]="showCustomerPassword ? 'text' : 'password'" 
+          placeholder="Password" [(ngModel)]="user.password" 
+          name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" 
+          required #password="ngModel">
+        <i class="fas" [class.fa-eye]="!showCustomerPassword" [class.fa-eye-slash]="showCustomerPassword" 
+          (click)="togglePasswordVisibility('customer')"></i>
+      </div>
+      <div class="error-message" *ngIf="password.invalid && (password.dirty || password.touched)">
+        Password must be at least 8 characters with uppercase, lowercase and numbers
+      </div>
+
+      <button type="submit" [disabled]="!customerForm.valid">Register</button>
+      <button type="button" (click)="closeCustomerRegistrationPopup()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- Tailor Registration Popup -->
+<div class="popup-overlay" *ngIf="isTailorRegistrationPopupOpen">
+  <div class="popup">
+    <button class="close-btn" (click)="closeTailorRegistrationPopup()">&times;</button>
+    <h2>Tailor Registration</h2>
+    <form (ngSubmit)="onTailorRegister()" #tailorForm="ngForm">
+      <input type="text" placeholder="Name" [(ngModel)]="tailor.name" 
+        name="name" pattern="^[a-zA-Z0-9]+$" required 
+        #tailorName="ngModel">
+      <div class="error-message" *ngIf="tailorName.invalid && (tailorName.dirty || tailorName.touched)">
+        Name can only contain letters and numbers
+      </div>
+
+      <input type="text" placeholder="Shop Name" [(ngModel)]="tailor.shopName" 
+        name="shopName" required>
+
+      <input type="tel" placeholder="Phone Number" [(ngModel)]="tailor.phone" 
+        name="phone" pattern="^[0-9]{10}$" required 
+        #tailorPhone="ngModel">
+      <div class="error-message" *ngIf="tailorPhone.invalid && (tailorPhone.dirty || tailorPhone.touched)">
+        Phone number must be 10 digits
+      </div>
+
+      <input type="email" placeholder="Email" [(ngModel)]="tailor.email" 
+        name="email" email required 
+        #tailorEmail="ngModel">
+      <div class="error-message" *ngIf="tailorEmail.invalid && (tailorEmail.dirty || tailorEmail.touched)">
+        Please enter a valid email
+      </div>
+
+      <div class="password-container">
+        <input [type]="showTailorPassword ? 'text' : 'password'" 
+          placeholder="Password" [(ngModel)]="tailor.password" 
+          name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" 
+          required #tailorPassword="ngModel">
+        <i class="fas" [class.fa-eye]="!showTailorPassword" [class.fa-eye-slash]="showTailorPassword" 
+          (click)="togglePasswordVisibility('tailor')"></i>
+      </div>
+      <div class="error-message" *ngIf="tailorPassword.invalid && (tailorPassword.dirty || tailorPassword.touched)">
+        Password must be at least 8 characters with uppercase, lowercase and numbers
+      </div>
+
+      <h3>Dresses You Stitch</h3>
+      <label><input type="checkbox" (change)="togglePriceInput('Suits')"> Suits</label>
+      <input
+        type="number"
+        placeholder="Price for Suits"
+        *ngIf="showSuitsPrice"
+        [ngModel]="getDressPrice('Suits')"
+        (ngModelChange)="setDressPrice('Suits', $event)"
+        name="suitsPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Ethnic Suit')"> Ethnic Suit</label>
+      <input
+        type="number"
+        placeholder="Price for Ethnic Suit"
+        *ngIf="showEthnicSuitPrice"
+        [ngModel]="getDressPrice('Ethnic Suit')"
+        (ngModelChange)="setDressPrice('Ethnic Suit', $event)"
+        name="ethnicSuitPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Trousers')"> Trousers</label>
+      <input
+        type="number"
+        placeholder="Price for Trousers"
+        *ngIf="showTrousersPrice"
+        [ngModel]="getDressPrice('Trousers')"
+        (ngModelChange)="setDressPrice('Trousers', $event)"
+        name="trousersPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Formal Shirts')"> Formal Shirts</label>
+      <input
+        type="number"
+        placeholder="Price for Formal Shirts"
+        *ngIf="showFormalShirtsPrice"
+        [ngModel]="getDressPrice('Formal Shirts')"
+        (ngModelChange)="setDressPrice('Formal Shirts', $event)"
+        name="formalShirtsPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Pathani Suit')"> Pathani Suit</label>
+      <input
+        type="number"
+        placeholder="Price for Pathani Suit"
+        *ngIf="showPathaniSuitPrice"
+        [ngModel]="getDressPrice('Pathani Suit')"
+        (ngModelChange)="setDressPrice('Pathani Suit', $event)"
+        name="pathaniSuitPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Desi Jacket')"> Desi Jacket</label>
+      <input
+        type="number"
+        placeholder="Price for Desi Jacket"
+        *ngIf="showDesiJacketPrice"
+        [ngModel]="getDressPrice('Desi Jacket')"
+        (ngModelChange)="setDressPrice('Desi Jacket', $event)"
+        name="desiJacketPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Blouse')"> Blouse</label>
+      <input
+        type="number"
+        placeholder="Price for Blouse"
+        *ngIf="showBlousePrice"
+        [ngModel]="getDressPrice('Blouse')"
+        (ngModelChange)="setDressPrice('Blouse', $event)"
+        name="blousePrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Kurti')"> Kurti</label>
+      <input
+        type="number"
+        placeholder="Price for Kurti"
+        *ngIf="showKurtiPrice"
+        [ngModel]="getDressPrice('Kurti')"
+        (ngModelChange)="setDressPrice('Kurti', $event)"
+        name="kurtiPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Anarkali Suit')"> Anarkali Suit</label>
+      <input
+        type="number"
+        placeholder="Price for Anarkali Suit"
+        *ngIf="showAnarkaliSuitPrice"
+        [ngModel]="getDressPrice('Anarkali Suit')"
+        (ngModelChange)="setDressPrice('Anarkali Suit', $event)"
+        name="anarkaliSuitPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Punjabi Suit')"> Punjabi Suit</label>
+      <input
+        type="number"
+        placeholder="Price for Punjabi Suit"
+        *ngIf="showPunjabiSuitPrice"
+        [ngModel]="getDressPrice('Punjabi Suit')"
+        (ngModelChange)="setDressPrice('Punjabi Suit', $event)"
+        name="punjabiSuitPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Chudidar Suit')"> Chudidar Suit</label>
+      <input
+        type="number"
+        placeholder="Price for Chudidar Suit"
+        *ngIf="showChudidarSuitPrice"
+        [ngModel]="getDressPrice('Chudidar Suit')"
+        (ngModelChange)="setDressPrice('Chudidar Suit', $event)"
+        name="chudidarSuitPrice"
+        class="price-input"
+      />
+
+      <label><input type="checkbox" (change)="togglePriceInput('Lehenga')"> Lehenga</label>
+      <input
+        type="number"
+        placeholder="Price for Lehenga"
+        *ngIf="showLehengaPrice"
+        [ngModel]="getDressPrice('Lehenga')"
+        (ngModelChange)="setDressPrice('Lehenga', $event)"
+        name="lehengaPrice"
+        class="price-input"
+      />
+
+      <!-- Other form fields -->
+      <div id="tailorMap" style="height: 300px; width: 100%;"></div>
+      <button type="button" (click)="useMyLocation()">Use My Location</button> <!-- Add this button -->
+      <input type="hidden" name="latitude" [(ngModel)]="latitude">
+      <input type="hidden" name="longitude" [(ngModel)]="longitude">
+      <!-- Other form fields -->
+      <button type="submit" [disabled]="!tailorForm.valid">Register</button>
+      <button type="button" (click)="closeTailorRegistrationPopup()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- Error Popup -->
+<div class="popup-overlay" *ngIf="isErrorPopupOpen">
+  <div class="popup error-popup">
+    <h2>Registration Failed</h2>
+    <p>{{ errorMessage }}</p>
+    <button (click)="retryRegistration()">Retry</button>
+    <button (click)="closeErrorPopup()">Close</button>
+  </div>
+</div>
+
+<section id="hero" class="hero-section">
+  <div class="carousel">
+    <div class="carousel-slide">
+      <img src="assets/hero-image.png" alt="Tailor Hero Image 1">
+      <img src="assets/pic3.jpg" alt="Tailor Hero Image 2">
+      <img src="assets/pic1.jpg" alt="Tailor Hero Image 3">
+      <img src="assets/pic2.jpg" alt="Tailor Hero Image 4">
+    </div>
+  </div>
+  <div class="hero-content">
+    <h1>Your Tailoring Business, Simplified</h1>
+    <p>Manage orders, customers, and appointments seamlessly.</p>
+    <button (click)="openRoleSelectionPopup()">Register Now!</button>
+  </div>
+</section>
+
+<section id="features" class="features-section">
+  <h2>Our Features</h2>
+  <div class="features-container">
+    <div class="feature">
+      <i class="fas fa-cut"></i>
+      <h3>Order Management</h3>
+      <p>Track and manage tailoring orders with ease. Keep everything organized in one place.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-user-friends"></i>
+      <h3>Customer Profiles</h3>
+      <p>Maintain detailed customer preferences and measurements for perfect fits every time.</p>
+    </div>
+    <div class="feature">
+      <i class="fas fa-tshirt"></i>
+      <h3>Diverse Dress Categories</h3>
+      <p>Explore a wide variety of dress styles and custom design options for every occasion.</p>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" class="testimonials-section">
+  <h2>What Our Users Say</h2>
+  <div class="testimonial">
+    <p>"दर्जीDukan transformed the way I manage my business!"</p>
+    <span>- Shaam Tailor</span>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 दर्जीDukan. All Rights Reserved.</p>
+</footer>
+
+<style>
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.error-popup {
+  text-align: center;
+}
+
+.error-popup button {
+  margin: 10px;
+  padding: 8px 16px;
+}
+</style>

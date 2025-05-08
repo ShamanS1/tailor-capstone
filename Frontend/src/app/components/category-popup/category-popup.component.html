@@ -1,0 +1,14 @@
+<h2>Select Categories</h2>
+<div class="category-list">
+  <mat-checkbox
+    *ngFor="let category of data.allCategories"
+    [checked]="selectedCategories.includes(category)"
+    (change)="toggleCategory(category)"
+  >
+    {{ category }}
+  </mat-checkbox>
+</div>
+<div class="actions">
+  <button mat-raised-button class="save-btn" (click)="saveSelection()">Save</button>
+  <button mat-raised-button class="cancel-btn" (click)="cancel()">Cancel</button>
+</div>

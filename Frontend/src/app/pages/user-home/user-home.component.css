@@ -1,0 +1,898 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff;
+  padding: 10px 20px;
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.top-bar .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-bar .logo img {
+  height: 50px;
+  width: auto;
+}
+
+.top-bar .logo span {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.top-bar .user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.top-bar .user-info span {
+  font-size: 20px;
+  font-weight: 550;
+}
+
+.top-bar .nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.top-bar .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px; /* Adjust icon size */
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.top-bar .nav-links a:hover {
+  opacity: 0.8;
+}
+
+/* Tooltip for icons */
+.top-bar .nav-links a {
+  position: relative;
+}
+
+.top-bar .nav-links a::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.top-bar .nav-links a:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px 40px;
+  padding-bottom: 100px;
+  background: #ffffff;
+  margin-top: 70px;
+}
+
+/* Gender Selection */
+.step {
+  margin-bottom: 30px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 1;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.1);
+  background: #ffffff;
+}
+
+.step h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #2d3436;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.step h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+}
+
+.gender-icons {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+.gender-icon {
+  padding: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(255, 142, 83, 0.05));
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+}
+
+.gender-icon:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 107, 107, 0.5);
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.1);
+}
+
+.gender-icon img {
+  width: 65px;
+  height: 65px;
+  transition: transform 0.3s ease;
+}
+
+/* Dress Grid */
+.dress-grid {
+  display: flex;
+  gap: 25px;
+  padding: 20px 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dress-card {
+  min-width: 200px;
+  flex: 0 0 auto;
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.dress-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.1);
+  background: #ffffff;
+}
+
+.dress-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.dress-card p {
+  font-size: 18px;
+  color: #2d3436;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+/* Shop List */
+.shop-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin: 20px 0;
+}
+
+.shop-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.shop-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.1);
+  background: #ffffff;
+}
+
+.shop-card p {
+  font-size: 16px;
+  color: #2d3436;
+  margin: 5px 0;
+}
+
+.shop-card button {
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.shop-card button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Fixed Buttons */
+.fixed-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 15px 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 1000;
+}
+
+.fixed-buttons button {
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.fixed-buttons button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.fixed-buttons button:disabled {
+  background: #e0e0e0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.modal {
+  position: relative;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+  padding: 35px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.3s ease;
+  border: 1px solid rgba(255, 107, 107, 0.1);
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bill Heading */
+.bill-heading-box {
+  margin-bottom: 15px;  /* Reduced from 20px */
+  padding: 8px 0;      /* Added padding for better spacing */
+}
+
+.modal-title {
+  font-family: Arial, sans-serif;
+  font-size: 1.6rem;   /* Reduced from 2rem */
+  font-weight: 700;
+  color: #4a4a4a;
+  margin: 0;
+  padding-bottom: 10px;  /* Reduced from 15px */
+  border-bottom: 2px solid rgba(255, 79, 79, 0.2);
+  letter-spacing: 0.5px;
+}
+
+/* Bill Table Styling */
+.bill-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.bill-table td, .bill-table th {
+  padding: 15px;
+  border-bottom: 1px solid #dcdcdc;
+  text-align: left;
+  font-size: 16px;
+}
+
+.bill-table th {
+  font-size: 18px;
+  font-weight: 600;
+  color: #34495e;
+  background-color: #f4f6f7;
+}
+
+.section-header th {
+  background-color: #d6dbdf;
+  font-size: 16px;
+  padding: 15px;
+}
+
+.price-row td {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2d3436; /* Dark Black */
+}
+
+/* Buttons */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.btn-close,
+.btn-download {
+  padding: 12px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+}
+
+.btn-close {
+  background: #e74c3c;
+}
+
+.btn-download {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn-download:hover {
+  background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn-download:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+}
+
+.btn-close:hover {
+  background: #c0392b;
+}
+
+/* Spacing adjustments */
+.bill-content {
+  padding: 15px;
+}
+
+.modal h2 {
+  font-family: 'Playfair Display', serif;
+  color: #2d3436;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: center;
+  position: relative;
+}
+
+.modal h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+}
+
+/* Modal Form Elements */
+.modal input,
+.modal select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.modal input:focus,
+.modal select:focus {
+  border-color: #FF6B6B;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+  outline: none;
+}
+
+.modal label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #2d3436;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Modal Buttons */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.modal-actions button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-actions button:first-child {
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.modal-actions button:last-child {
+  background: white;
+  color: #2d3436;
+  border: 2px solid #e0e0e0;
+}
+
+.modal-actions button:hover {
+  transform: translateY(-2px);
+}
+
+.modal-actions button:first-child:hover {
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Close Button Enhancement */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  color: #FF6B6B;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #FF6B6B;
+  z-index: 1;
+}
+
+.close-button:hover {
+  background: #FF6B6B;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* Shop Image Container */
+.shop-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 15px 15px 0 0;
+}
+
+.shop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+}
+
+/* Shop Name */
+.shop-name {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #fff;
+  font-size: 28px;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)); /* Gradient background */
+  padding: 10px 20px; /* Add padding */
+  border-radius: 10px; /* Rounded corners */
+  backdrop-filter: blur(5px); /* Optional: Adds a blur effect to the background */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.shop-name:hover {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)); /* Darken gradient on hover */
+}
+
+/* Shop Details */
+.shop-details {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.shop-details p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Map Container */
+.map-container {
+  height: 200px;
+  margin: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Dress Image Container */
+.dress-image-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.dress-image {
+  max-width: 80%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Dress Details */
+.dress-details {
+  margin-bottom: 20px;
+}
+
+.dress-details h2 {
+  margin-bottom: 10px;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-actions button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-actions button:last-child {
+  background-color: #6c757d;
+  color: white;
+}
+/* Radio Group Styling */
+.radio-group {
+  margin-bottom: 20px;
+}
+
+.radio-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.radio-options {
+  display: flex;
+  gap: 20px; /* Space between radio buttons */
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between radio button and label */
+  cursor: pointer;
+}
+
+.radio-option input[type="radio"] {
+  margin: 0; /* Remove default margin */
+}
+
+/* Cloth Fields Styling */
+.cloth-fields {
+  margin-top: 20px;
+}
+
+.cloth-fields label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.cloth-fields input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Design Options Styling */
+.design-option {
+  margin-bottom: 15px;
+}
+
+.design-option label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.design-option select,
+.design-option input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Modal Actions Styling */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-actions button:hover {
+  background-color: #0056b3;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.category-card {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.category-name {
+  font-weight: bold;
+}
+
+.category-price {
+  color: #4caf50; /* Green color for the price */
+  font-weight: bold;
+}
+
+/* Add scroll indicators for dress categories */
+.dress-grid::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 50px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9));
+  pointer-events: none;
+}
+
+/* Measurement Modal Specific Styles */
+.measurement-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.measurement-form label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #2d3436;
+  margin-bottom: 5px;
+}
+
+.measurement-form input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.measurement-form input:focus {
+  border-color: #FF6B6B;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+  outline: none;
+}
+
+/* Update Measurement Modal Buttons */
+.modal .measurement-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal .measurement-form .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* Override the simple button styles with new gradient styles */
+.measurement-form button {
+  padding: 12px 25px !important;
+  border: none !important;
+  border-radius: 50px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  margin: 0 !important;
+}
+
+/* Close button style */
+.measurement-form button:first-of-type {
+  background: white !important;
+  color: #2d3436 !important;
+  border: 2px solid #e0e0e0 !important;
+}
+
+/* Calculate Price button style */
+.measurement-form button:last-of-type {
+  background: linear-gradient(45deg, #FF6B6B, #FF8E53) !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3) !important;
+}
+
+/* Hover effects */
+.measurement-form button:hover {
+  transform: translateY(-2px);
+}
+
+.measurement-form button:last-of-type:hover {
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4) !important;
+}
+
+/* Remove any conflicting styles */
+.measurement-form button:first-of-type:hover {
+  background: white !important;
+}
+

@@ -1,0 +1,265 @@
+/* Global styles for the profile container with very light dark gradient */
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));  /* Reduced opacity from 0.5 to 0.3 */
+  border-radius: 15px;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.3),    /* Matching lighter shadow */
+    inset 0 2px 4px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.25);   /* Bottom shadow */
+  font-family: Arial, sans-serif;
+}
+
+/* Profile header section */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.profile-header h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #4a4a4a;
+  margin-bottom: 4rem;
+  letter-spacing: 0.5px;
+}
+
+.profile-header button {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+}
+
+.profile-header button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+  background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+}
+
+/* Profile content layout */
+.profile-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+/* Profile picture section */
+.profile-picture-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-picture {
+  text-align: center;
+}
+
+.profile-img {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 8px solid #2c3e50; /* Navy blue border */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Profile Details Section */
+.profile-details-section {
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        inset 0 2px 4px rgba(255, 255, 255, 0.9);
+    border-left: 4px solid #FF4F4F;
+}
+
+/* Enhanced Form Styling */
+.profile-form {
+    display: grid;
+    gap: 25px;
+}
+
+.form-field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-field label {
+    font-size: 14px;
+    color: #4a4a4a;
+    font-weight: 600;
+    margin-left: 4px;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #2c3e50;
+    background: white;
+    transition: all 0.3s ease;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.02),
+        0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Editable State Styling */
+.profile-form.editing .form-field input:not([readonly]) {
+    border-color: #e0e0e0;
+    background: white;
+}
+
+.profile-form.editing .form-field input:hover:not([readonly]) {
+    border-color: #FF4F4F;
+    transform: translateX(3px);
+}
+
+.profile-form.editing .form-field input:focus:not([readonly]) {
+    outline: none;
+    border-color: #FF4F4F;
+    box-shadow: 
+        0 0 0 3px rgba(255, 79, 79, 0.1),
+        inset 0 2px 4px rgba(0, 0, 0, 0.02);
+    transform: translateX(3px);
+}
+
+/* Non-editable State Styling */
+.form-field input[readonly] {
+    background: linear-gradient(145deg, #f8f9fa, #f2f2f2);
+    border-color: transparent;
+    color: #666;
+    cursor: default;
+    pointer-events: none;
+    user-select: none;
+    box-shadow: none;
+    padding-left: 14px;
+}
+
+/* Label animation on focus/filled */
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label {
+    color: #FF4F4F;
+    transform: translateY(-2px);
+}
+
+/* Form field hover effect */
+.form-field:hover label {
+    color: #FF4F4F;
+}
+
+/* Save Button Enhancement */
+.save-button {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.save-button button {
+    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+    color: white;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+}
+
+.save-button button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+    background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+}
+
+/* Edit Button Enhancement */
+.edit-button {
+    background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+}
+
+.edit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+    background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+}
+
+/* Additional protection for non-editable state */
+.profile-form:not(.editing) input {
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    background: linear-gradient(145deg, #f8f9fa, #f2f2f2) !important;
+    border-color: transparent !important;
+    color: #666 !important;
+}
+
+/* Change password button */
+.change-password-section {
+  grid-column: span 2;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.change-password-section button {
+  background-color: #2c3e50; /* Navy blue */
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.change-password-section button:hover {
+  background-color: #1a2530; /* Darker shade for hover */
+}
+
+/* Form Field Container */
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.5em 0;
+  border-top: 0;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start,
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 8px;
+}

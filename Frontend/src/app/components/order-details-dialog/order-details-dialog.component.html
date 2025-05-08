@@ -1,0 +1,58 @@
+<div class="order-details-card">
+  <mat-card-header>
+    <mat-card-title>Order Details</mat-card-title>
+    <mat-card-subtitle>Order ID: {{ data.orderId }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <!-- Scrollable Content -->
+  <div class="dialog-content">
+    <!-- Customer Details -->
+    <div class="section">
+      <h3 class="section-title">
+        <mat-icon>person</mat-icon>
+        Customer Details
+      </h3>
+      <div class="section-content">
+        <p><span class="detail-label">Name:</span> {{ data.customerDetails.name }}</p>
+        <p><span class="detail-label">Email:</span> {{ data.customerDetails.email }}</p>
+        <p><span class="detail-label">Phone:</span> {{ data.customerDetails.phoneNumber }}</p>
+      </div>
+    </div>
+
+    <!-- Order Details -->
+    <div class="section">
+      <h3 class="section-title">
+        <mat-icon>event</mat-icon>
+        Order Details
+      </h3>
+      <div class="section-content">
+        <p><span class="detail-label">Order Date:</span> {{ data.orderDate | date: 'medium' }}</p>
+        <p><span class="detail-label">Delivery Date:</span> {{ data.deliveryDate | date: 'medium' }}</p>
+        <p>
+          <span class="detail-label">Status:</span>
+          <span [ngClass]="'status-' + data.status.toLowerCase()">{{ data.status }}</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Measurement Details -->
+    <div class="section">
+      <h3 class="section-title">
+        <mat-icon>straighten</mat-icon>
+        Measurement Details
+      </h3>
+      <div class="section-content">
+        <p><span class="detail-label">Gender:</span> {{ data.measurementDetails.gender }}</p>
+        <p><span class="detail-label">Category:</span> {{ data.measurementDetails.category }}</p>
+        <p><span class="detail-label">Design:</span> {{ data.measurementDetails.design }}</p>
+        <p><span class="detail-label">Measurements:</span> {{ data.measurementDetails.measurements }}</p>
+        <p><span class="detail-label">Price:</span> {{ data.measurementDetails.price | currency }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dialog Actions -->
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onClose()">Close</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,195 @@
+.order-details-card {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  border-left: 4px solid #FF4F4F;
+  height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+mat-card-header {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: white;
+  padding: 16px;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+mat-card-title {
+  font-size: 24px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+mat-card-subtitle {
+  color: white;
+  font-size: 14px;
+}
+
+.dialog-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+/* Hide all scrollbars except for dialog-content */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Only show scrollbar for dialog-content
+.dialog-content::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+} */
+
+.dialog-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.dialog-content::-webkit-scrollbar-thumb {
+  background: #FF4F4F;
+  border-radius: 4px;
+}
+
+.dialog-content::-webkit-scrollbar-thumb:hover {
+  background: #ff3535;
+}
+
+.section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.1);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  color: #2c3e50;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.section-title mat-icon {
+  margin-right: 8px;
+  color: #FF4F4F;
+}
+
+.section-content {
+  padding: 0 16px;
+}
+
+.section-content p {
+  margin: 8px 0;
+  font-size: 15px;
+  color: #4a4a4a;
+  display: flex;
+  align-items: baseline;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section-content p:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #2c3e50;
+  min-width: 140px;
+  display: inline-block;
+}
+
+mat-divider {
+  margin: 16px 0;
+}
+
+.status-pending {
+  color: #f39c12;
+  font-weight: 600;
+}
+
+.status-processing {
+  color: #FF4F4F;
+  font-weight: 600;
+}
+
+.status-completed {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.status-cancelled {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+mat-dialog-actions {
+  padding: 16px;
+  background: white;
+  border-radius: 0 0 12px 12px;
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+mat-dialog-actions button {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  border: none;
+  font-weight: 600;
+}
+
+mat-dialog-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+}
+
+mat-dialog-actions button:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+  .order-details-card {
+    height: calc(100vh - 40px);
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .section-content {
+    padding: 0 8px;
+  }
+
+  .detail-label {
+    min-width: 100px;
+  }
+}
+
+/* Add this to hide dialog container scrollbar */
+::ng-deep mat-dialog-container {
+  overflow: hidden !important;
+}
