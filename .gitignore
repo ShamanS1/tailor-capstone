@@ -1,7 +1,3 @@
-# Angular build output
-/dist
-/tmp
-/out-tsc
 
 # Angular cache
 # Ignore Angular build/cache files
@@ -16,26 +12,3 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Environment files
-.env
-.env.*.local
-
-# Compiled JS
-*.js
-*.js.map
-
-# Coverage reports
-coverage/
-
-# Git files to avoid
-*.orig
-
-# Optional: OS or personal editor settings
-*.swp
-*.swo
-*.bak
